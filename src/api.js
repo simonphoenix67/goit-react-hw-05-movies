@@ -7,6 +7,7 @@ axios.defaults.params = {
   include_adult: false,
 };
 
+//const IMG_URL = noPhoto;
 const IMG_URL = 'https://image.tmdb.org/t/p/w500';
 
 
@@ -17,12 +18,15 @@ export const fetchTrending = async () => {
       results.map(({ id, title, poster_path: poster }) => ({
         id,
         title,
-        poster: IMG_URL + poster,
+        //poster: IMG_URL + poster,
+        poster: IMG_URL ? IMG_URL + poster : noPhoto
       }))
     )
     .catch(error => {
       console.log(error.message);
     });
+
+
 };
 
 export const fetchByQuery = async query => {
@@ -32,7 +36,9 @@ export const fetchByQuery = async query => {
       results.map(({ id, title, poster_path: poster }) => ({
         id,
         title,
-        poster: IMG_URL + poster,
+        //poster: IMG_URL + poster,
+        //poster: poster ? IMG_URL + poster : IMG_URL,
+        poster: IMG_URL ? IMG_URL + poster : noPhoto
       }))
     )
     .catch(error => {
@@ -56,7 +62,8 @@ export const fetchMovieDetails = movieId => {
         },
       }) => ({
         id,
-        poster: IMG_URL + poster,
+        //poster: IMG_URL + poster,
+        poster: poster ? IMG_URL + poster : IMG_URL,
         title,
         releaseYear: new Date(releaseYear).getFullYear(),
         userScore: Math.round(userScore * 10),
@@ -78,6 +85,7 @@ export const fetchMovieCredits = movieId => {
         name,
         character,
         photo: photo ? IMG_URL + photo : noPhoto,
+
       }))
     )
     .catch(error => {

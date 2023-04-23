@@ -94,6 +94,7 @@ export const Img = styled.img`
   display: block;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+  // background-image: url("../../components/images/images.jpg");
 `;
 
 export const MovieTitle = styled.div`

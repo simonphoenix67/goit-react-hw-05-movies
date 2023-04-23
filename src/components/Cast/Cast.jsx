@@ -12,17 +12,39 @@ import {
   CastChar,
 } from './Cast.styled';
 
-export const Cast = () => {
-  const { movieId } = useParams('movieId');
+const Cast = () => {
+   const { movieId } = useParams('movieId');
+  //const { movieId } = useParams({ movieId: '' });
   const [credits, setCredits] = useState([]);
 
   useEffect(() => {
     fetchMovieCredits(movieId).then(setCredits);
   }, [movieId]);
 
+  // return (
+  //   <CastContainer>
+  //     {credits.length > 0 && (
+  //       <CastList>
+  //         {credits.map(({ id, name, character, photo }) => {
+  //           return (
+  //             <CastItem key={id}>
+  //               <Img src={photo} alt={name} />
+  //               <CastDescr>
+  //                 <CastName>{name}</CastName>
+  //                 <CastChar>Character: {character}</CastChar>
+  //               </CastDescr>
+  //             </CastItem>
+  //           );
+  //         })}
+  //       </CastList>
+  //     )}
+  //   </CastContainer>
+
+  // );
+
   return (
     <CastContainer>
-      {credits.length > 0 && (
+      {credits.length > 0 ? (
         <CastList>
           {credits.map(({ id, name, character, photo }) => {
             return (
@@ -36,9 +58,12 @@ export const Cast = () => {
             );
           })}
         </CastList>
+      ) : (
+        <p>The cast is empty</p>
       )}
     </CastContainer>
   );
 };
 
+export default Cast
 

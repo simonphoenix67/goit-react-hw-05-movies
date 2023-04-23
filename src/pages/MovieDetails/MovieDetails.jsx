@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-
+import noPhoto from '../../components/images/images.jpg'
 import { useParams, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { fetchMovieDetails } from '../../api';
 import {
@@ -12,6 +12,10 @@ import {
   InfoList,
   InfoLink,
 } from './MovieDetails.styled';
+
+
+
+const noAvatar = 'https://image.tmdb.org/t/p/w500';
 
 const MovieDetails = () => {
   const [movie, setMovie] = useState(null);
@@ -39,7 +43,8 @@ const MovieDetails = () => {
       {movie && (
         <div>
           <MovieContainer>
-            <Img src={poster} alt={title} />
+            {/* <Img src={poster ? poster : noAvatar} alt={title} /> */}
+            <Img src={poster && poster !== noAvatar ? poster : noPhoto} alt={title} />
             <MovieInfo>
               <MovieTitle>
                 {title} ({releaseYear})

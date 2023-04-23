@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams, useLocation } from 'react-router-dom';
 import { fetchByQuery } from '../../api';
+import noPhoto from '../../components/images/images.jpg';
 import {
   FormDiv,
   Form,
@@ -13,6 +14,8 @@ import {
   MovieTitle,
 } from './Movies.styled';
 
+const noAvatar = 'https://image.tmdb.org/t/p/w500null';
+
 const Movies = () => {
   const [query, setQuery] = useState('');
   const [movies, setMovies] = useState([]);
@@ -22,7 +25,9 @@ const Movies = () => {
   const searchQuery = searchParams.get('query');
 
   useEffect(() => {
-    searchQuery && fetchByQuery(searchQuery).then(setMovies);
+    searchQuery && fetchByQuery(searchQuery).then(setMovies).catch(error => {
+      console.log(error.message);
+    });
   }, [searchQuery]);
 
   const handleSubmit = async e => {
@@ -50,7 +55,8 @@ const Movies = () => {
           {movies.map(({ id, title, poster }) => (
             <MovieItem key={id}>
               <MovieLink to={`/movies/${id}`} state={{ from: location }}>
-                <Img src={poster} alt={title} />
+                {/* <Img src={poster} alt={title} /> */}
+                <Img src={poster && poster !== noAvatar ? poster : noPhoto} alt={title} />
                 <MovieTitle>
                   <h3>{title}</h3>
                 </MovieTitle>
